@@ -27,14 +27,15 @@ const ISSTracker = () => {
 
   const fetchISS = async () => {
     try {
-      const res = await fetch('http://api.open-notify.org/iss-now.json');
+      const res = await fetch('https://api.wheretheiss.at/v1/satellites/25544');
       const data = await res.json();
       const newPos = {
-        latitude: parseFloat(data.iss_position.latitude),
-        longitude: parseFloat(data.iss_position.longitude),
+        latitude: data.latitude,
+        longitude: data.longitude,
       };
       setPosition(newPos);
       setPositionHistory((history) => [...history.slice(-50), newPos]);
+
     } catch (error) {
       console.error('Failed to fetch ISS location:', error);
     }
